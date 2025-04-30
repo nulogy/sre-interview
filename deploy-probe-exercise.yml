@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: sre-probe
   labels:
-    app: sre
+    app: sre-probe
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sre
+      app: sre-probe
   template:
     metadata:
       labels:
-        app: sre
+        app: sre-probe
     spec:
       nodeSelector:
         nodePool: sreInterview

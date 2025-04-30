@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sre-pgclient
+  labels:
+    app: sre-pgclient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sre-pgclient
+  template:
+    metadata:
+      labels:
+        app: sre-pgclient
+    spec:
+      nodeSelector:
+        nodePool: sreInterview
+      containers:
+        - name: pgclient
+          image: __ECR_REPOSITORY__:v1
+          env:
+            - name: PGHOST
+              value: db-postgresql
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg-secret
+                  key: password
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
+            requests:
+              cpu: "50m"
+              memory: "64Mi"

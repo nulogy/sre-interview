@@ -3,22 +3,22 @@ kind: Deployment
 metadata:
   name: sre-imagepull
   labels:
-    app: sre
+    app: sre-imagepull
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sre
+      app: sre-imagepull
   template:
     metadata:
       labels:
-        app: sre
+        app: sre-imagepull
     spec:
       nodeSelector:
         nodePool: sreInterview
       restartPolicy: Always
       containers:
-      - name: bookworm
+      - name: pgclient
         resources:
           limits:
             memory: 600Mi
@@ -26,7 +26,7 @@ spec:
           requests:
             memory: 300Mi
             cpu: 500m
-        image: __ECR_REPOSITORY__:12
+        image: __ECR_REPOSITORY__:v1
         imagePullPolicy: Always
         command: ["sleep"]
         args: ["infinity"]

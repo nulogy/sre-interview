@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sre-probe
+  labels:
+    app: sre
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sre
+  template:
+    metadata:
+      labels:
+        app: sre
+    spec:
+      nodeSelector:
+        nodePool: sreInterview
+      restartPolicy: Always
+      containers:
+      - name: bookworm
+        resources:
+          limits:
+            memory: 600Mi
+            cpu: 1
+          requests:
+            memory: 300Mi
+            cpu: 500m
+        image: debian:12
+        command: ["sleep"]
+        args: ["infinity"]
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /tmp/healthy
+          initialDelaySeconds: 0
+          periodSeconds: 60
+          failureThreshold: 1

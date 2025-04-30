@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sre-imagepull
+  labels:
+    app: sre
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sre
+  template:
+    metadata:
+      labels:
+        app: sre
+    spec:
+      nodeSelector:
+        nodePool: sreInterview
+      restartPolicy: Always
+      containers:
+      - name: bookworm
+        resources:
+          limits:
+            memory: 600Mi
+            cpu: 1
+          requests:
+            memory: 300Mi
+            cpu: 500m
+        image: __ECR_REPOSITORY__:12
+        imagePullPolicy: Always
+        command: ["sleep"]
+        args: ["infinity"]
+

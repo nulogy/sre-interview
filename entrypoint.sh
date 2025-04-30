@@ -14,8 +14,9 @@ CREATE TABLE IF NOT EXISTS random_numbers (
 EOF
 
 while true; do
+  VALUE=$RANDOM
   psql "host=$PGHOST port=5432 user=postgres dbname=postgres" <<EOF
-INSERT INTO random_numbers (value) VALUES ($RANDOM);
+INSERT INTO random_numbers (value) VALUES ($VALUE);
 EOF
   echo "Added $VALUE"
   sleep 1

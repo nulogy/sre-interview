@@ -26,7 +26,7 @@ spec:
           requests:
             memory: 300Mi
             cpu: 500m
-        image: __ECR_REPOSITORY__:v1
+        image: __ECR_REPOSITORY__:latest
         imagePullPolicy: Always
         command: ["sleep"]
         args: ["infinity"]

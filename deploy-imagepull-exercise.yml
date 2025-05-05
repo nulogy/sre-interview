@@ -18,7 +18,7 @@ spec:
         nodePool: sreInterview
       restartPolicy: Always
       containers:
-      - name: pgclient
+      - name: app
         resources:
           limits:
             memory: 600Mi
